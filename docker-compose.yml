@@ -1,0 +1,48 @@
+version: '3'
+services:
+
+  pismodb:
+    container_name: pismodb
+    image: mysql:8
+    ports:
+      - "13306:3306"
+    volumes:
+      - "./scripts/schema.sql:/docker-entrypoint-initdb.d/1.sql"
+      - "./scripts/data.sql:/docker-entrypoint-initdb.d/2.sql"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=pismo-test
+      - MYSQL_PASSWORD=root
+
+  api-account:
+    container_name: api-account
+    build:
+      context: api-account
+      dockerfile: Dockerfile
+    image: api-account:1.0
+    ports:
+      - "18090:8090"
+    environment:
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_URL: jdbc:mysql://pismodb:3306/pismo-test?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+    depends_on:
+      - pismodb
+
+  api-transaction:
+    container_name: api-transaction
+    build:
+        context: api-transaction
+        dockerfile: Dockerfile
+    image: api-transaction:1.0
+    ports:
+      - "18091:8091"
+    environment:
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_URL: jdbc:mysql://pismodb:3306/pismo-test?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+    depends_on:
+      - pismodb
+
+
