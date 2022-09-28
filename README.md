@@ -99,6 +99,11 @@ Rode o mysql como container docker
 ```
 docker run -p 3306:3306 --name pismodb-local -e MYSQL_ROOT_PASSWORD=root -d mysql:8
 ``` 
+Crie esquema pismo-test
+
+```
+CREATE DATABASE pismo-test
+``
 
 Execute os scripts data pasta /scripts para a criacao das tabelas e insert inicial do banco.
 
