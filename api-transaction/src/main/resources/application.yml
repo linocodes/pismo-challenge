@@ -1,0 +1,27 @@
+server:
+  port: 8091
+  servlet:
+    context-path: /api-transaction
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/pismo-test
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    open-in-view: true
+    show-sql: false
+    properties:
+      javax:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
+    hibernate:
+      ddl-auto: none
+      cache:
+        use_second_level_cache: true
+        use_query_cache: true
+        region:
+          factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+    database: mysql
