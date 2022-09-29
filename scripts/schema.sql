@@ -1,7 +1,8 @@
 create table account
 (
     account_id     bigint auto_increment primary key,
-    document_number varchar(255) not null
+    document_number varchar(255) not null,
+    available_credit_limit  decimal(10, 2) not null default 0
 );
 
 create table transaction
