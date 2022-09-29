@@ -25,3 +25,7 @@ spring:
         region:
           factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
     database: mysql
+
+client:
+  apiAccount:
+    baseUrl: http://localhost:8090/api-account
