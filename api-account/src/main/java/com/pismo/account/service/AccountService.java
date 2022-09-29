@@ -5,6 +5,7 @@ import com.pismo.account.repository.AccountRepository;
 import com.pismo.lib.constants.Constants;
 import com.pismo.lib.exception.ElementNotFoundException;
 import com.pismo.lib.model.request.AccountRequest;
+import com.pismo.lib.model.request.UpdateAccountRequest;
 import com.pismo.lib.model.response.AccountResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,23 @@ public class AccountService {
         );
     }
 
+    public AccountResponse putAccountId(Long accountId, UpdateAccountRequest request) {
+        AccountEntity accountEntity = findbyId(accountId);
+        accountEntity.setSaldo(request.getSaldo());
+        repository.save(accountEntity);
+        return getAccountResponse(accountEntity);
+    }
+
     public AccountResponse getAccountById(Long accountId) {
         AccountEntity accountEntity = findbyId(accountId);
+        return getAccountResponse(accountEntity);
+    }
+
+    private AccountResponse getAccountResponse(AccountEntity accountEntity) {
         return AccountResponse.builder()
                 .id(accountEntity.getId())
                 .documentNumber(accountEntity.getDocumentNumber())
+                .saldo(accountEntity.getSaldo())
                 .build();
     }
 

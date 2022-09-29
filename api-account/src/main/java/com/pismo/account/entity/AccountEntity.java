@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -27,5 +28,8 @@ public class AccountEntity {
 
     @Column(name = "document_number", nullable = false)
     private String documentNumber;
+
+    @Column(name = "available_credit_limit", nullable = false)
+    private BigDecimal saldo;
 
 }
