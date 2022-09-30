@@ -20,7 +20,7 @@ Utilizei o banco de dados mysql com as seguintes credenciais
 
 |  Service | Docker Swagger | Local Swagger                                                |
 |---|----|--------------------------------------------------------------|
-| Account |  http://localhost:18090/api-account/swagger-ui/index.html | http://localhost:18090/api-account/swagger-ui/index.html     |   
+| Account |  http://localhost:18090/api-account/swagger-ui/index.html | http://localhost:8090/api-account/swagger-ui/index.html     |   
 | Transaction |  http://localhost:18091/api-transaction/swagger-ui/index.html | http://localhost:8091/api-transaction/swagger-ui/index.html  |
 
 # Api Account
