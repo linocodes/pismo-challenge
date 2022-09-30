@@ -10,6 +10,7 @@ import com.pismo.lib.model.response.AccountResponse;
 import com.pismo.transaction.client.AccountFeignClient;
 import com.pismo.transaction.entity.TransactiontEntity;
 import com.pismo.transaction.repository.TransactionRepository;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class TransacionService {
+public class TransactionService {
 
     private final AccountFeignClient accountFeignClient;
     private final TypeOperationFactory typeOperationFactory;
@@ -37,14 +38,14 @@ public class TransacionService {
     private void createtransaction(TransactionRequest request, TypeOperationInterface service) {
 
         AccountResponse accountResponse = getAccount(request.getAccountId());
-
-        BigDecimal amount =  calculaNovoSaldo(request, service, accountResponse.getSaldo());
+        BigDecimal amountOperation = getAmount(request, service);
+        BigDecimal amount = calculaNovoSaldo(amountOperation, accountResponse.getSaldo());
 
         try {
             TransactiontEntity transactiontEntity = TransactiontEntity.builder()
                     .accountId(request.getAccountId())
                     .typeOperation(request.getTypeOperation().intValue())
-                    .amount(getAmount(request, service))
+                    .amount(amountOperation)
                     .build();
 
             transactionRepository.save(transactiontEntity);
@@ -59,8 +60,7 @@ public class TransacionService {
 
     public void updateAccount(Long accountId, BigDecimal amount) {
         UpdateAccountRequest updateAccountRequest = UpdateAccountRequest.builder().saldo(amount).build();
-        AccountResponse  response = accountFeignClient.updateAccount(accountId, updateAccountRequest).getBody();
-        log.info(response.toString());
+        AccountResponse response = accountFeignClient.updateAccount(accountId, updateAccountRequest).getBody();
     }
 
     public AccountResponse getAccount(Long accountId) {
@@ -71,12 +71,12 @@ public class TransacionService {
         return service.defineSignal(request.getAmount(), TypesOperationEnum.getTypeOperation(request.getTypeOperation().intValue()));
     }
 
-    private BigDecimal calculaNovoSaldo(TransactionRequest request, TypeOperationInterface service, BigDecimal saldoAccount) {
+    private BigDecimal calculaNovoSaldo(BigDecimal amountOperation, BigDecimal saldoAccount) {
 
-        BigDecimal amount = saldoAccount.add(getAmount(request,service));
+        BigDecimal amount = saldoAccount.add(amountOperation);
 
         if (amount.compareTo(new BigDecimal(0)) == -1) {
-            throw new BadRequestException("Saldo não permite a operação.");
+            throw new BadRequestException(Constants.Messages.SALDO_NEGATIVO);
         }
 
         return amount;

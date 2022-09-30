@@ -1,7 +1,7 @@
 package com.pismo.transaction.controller;
 
 import com.pismo.lib.model.request.TransactionRequest;
-import com.pismo.transaction.service.TransacionService;
+import com.pismo.transaction.service.TransactionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -22,7 +22,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class TransactionController {
 
-    private final TransacionService service;
+    private final TransactionService service;
 
     @Operation(summary = "Create a new account", description = "Creates a new account as per the request body")
     @ApiResponses(value = {
