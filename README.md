@@ -103,9 +103,9 @@ Crie esquema pismo-test
 
 ```
 CREATE DATABASE pismo-test
-``
+```
 
-Execute os scripts data pasta /scripts para a criacao das tabelas e insert inicial do banco.
+Execute os scripts da pasta /scripts para a criacao das tabelas e insert inicial do banco.
 
   - schema.sql
   - data.sql
@@ -127,4 +127,4 @@ Move para a raiz do projeto e rode o comando
 mvn clean package
 ```
 
-docker build --tag=api-account:1.0 ./api-account/.
+docker-compose up --build
