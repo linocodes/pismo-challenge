@@ -33,7 +33,7 @@ Cadastro um novo cliente
 
 ```
 curl -X 'POST' \
-'http://localhost:8090/api-account/v1/accounts' \
+'http://localhost:18090/api-account/v1/accounts' \
 -H 'accept: */*' \
 -H 'Content-Type: application/json' \
 -d '{
@@ -91,7 +91,7 @@ Siga os passos para realizar o deploy da aplicação local
 Faça o clone para a ide usando o repositório
 
 ```
-git clone https://github.com/linocodes/pismo-back-test
+git clone https://github.com/linocodes/pismo-challenge.git
 ```
 
 Rode o mysql como container docker 
@@ -118,7 +118,7 @@ Siga os passos para realizar o deploy da aplicação com docker
 Faça o clone para a ide usando o repositório
 
 ```
-git clone https://github.com/linocodes/pismo-back-test
+git clone https://github.com/linocodes/pismo-challenge.git
 ```
 
 Move para a raiz do projeto e rode o comando
