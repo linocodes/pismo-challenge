@@ -60,7 +60,7 @@ public class TransactionService {
 
     public void updateAccount(Long accountId, BigDecimal amount) {
         UpdateAccountRequest updateAccountRequest = UpdateAccountRequest.builder().saldo(amount).build();
-        AccountResponse response = accountFeignClient.updateAccount(accountId, updateAccountRequest).getBody();
+        accountFeignClient.updateAccount(accountId, updateAccountRequest).getBody();
     }
 
     public AccountResponse getAccount(Long accountId) {
