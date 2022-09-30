@@ -20,7 +20,7 @@ services:
     build:
       context: api-account
       dockerfile: Dockerfile
-    image: api-account:1.0
+    image: api-account:latest
     ports:
       - "18090:8090"
     environment:
@@ -35,13 +35,14 @@ services:
     build:
         context: api-transaction
         dockerfile: Dockerfile
-    image: api-transaction:1.0
+    image: api-transaction:latest
     ports:
       - "18091:8091"
     environment:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_DATASOURCE_URL: jdbc:mysql://pismodb:3306/pismo-test?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+      CLIENT_APIACCOUNT_BASEURL: http://api-account:8090/api-account
     depends_on:
       - pismodb
 
