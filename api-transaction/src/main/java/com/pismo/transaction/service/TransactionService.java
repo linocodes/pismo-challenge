@@ -71,7 +71,7 @@ public class TransactionService {
         return service.defineSignal(request.getAmount(), TypesOperationEnum.getTypeOperation(request.getTypeOperation().intValue()));
     }
 
-    private BigDecimal calculaNovoSaldo(BigDecimal amountOperation, BigDecimal saldoAccount) {
+    public BigDecimal calculaNovoSaldo(BigDecimal amountOperation, BigDecimal saldoAccount) {
 
         BigDecimal amount = saldoAccount.add(amountOperation);
 
